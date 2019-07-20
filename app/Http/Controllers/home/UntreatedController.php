@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * create by xfdada
+ * time 2019-07-20
+ * 未处理文章
+ */
 namespace App\Http\Controllers\home;
 
 use App\Http\Model\Index;

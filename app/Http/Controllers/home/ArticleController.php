@@ -1,9 +1,11 @@
 <?php
-
+/**
+ * create by xfdada
+ * time 2019-07-20
+ * 已处理文章
+ */
 namespace App\Http\Controllers\home;
 
-use App\Http\Model\Index;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -40,7 +42,7 @@ class ArticleController extends Controller
         return $this->ToJson(5,'','编辑失败');
     }
 
-
+    //编辑页面
     public function edit($id){
         $host ="http://".$_SERVER['HTTP_HOST'].'/';
         $data = DB::table('article')->find($id);

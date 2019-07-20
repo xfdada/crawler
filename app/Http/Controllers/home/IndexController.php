@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * create by xfdada
+ * time 2019-07-20
+ * 内容爬取
+ */
 namespace App\Http\Controllers\home;
 
 use App\Http\Model\Index;
