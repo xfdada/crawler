@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use resources\helper\image;
 
 class IndexController extends Controller
 {
@@ -50,15 +49,19 @@ class IndexController extends Controller
         return $this->ToJson(5,'','编辑失败');
     }
     //删除
-    public function destroy(){
-
+    public function destroy($id){
+        $res = DB::table('article_cash')->delete($id);
+        if ($res){
+            return $this->ToJson(1,'','删除成功');
+        }
+        return $this->ToJson(5,'','删除失败');
     }
     //展示编辑页面
     public function edit($id){
         $host ="http://".$_SERVER['HTTP_HOST'].'/';
         $data = DB::table('article_cash')->find($id);
         $data->content = json_decode($data->content,true);
-        return view('detail',compact('data','host'));
+        return view('edit',compact('data','host'));
     }
 
     //缩略图创建
@@ -104,7 +107,7 @@ class IndexController extends Controller
         $data = $this->Img_Upload($file);
 //        dd($data);
         $save_dir = 'img/'.date("Ymd").'/';
-        $file_name = md5(date('YmdHis').mt_rand(10000,99999)).strrchr($file,'.');
+        $file_name = md5(date('YmdHis').mt_rand(10000,99999)).'.png';
         $res = $this->getcentreimg($data,$save_dir.$file_name,'200','200');
         if($res){
             unlink($data);

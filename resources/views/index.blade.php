@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <title>祥富微信文章爬取工具</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
+<link rel="stylesheet" href="http://res.layui.com/layui/dist/css/layui.css">
+  <link rel="stylesheet" href="{{asset('css/style.css')}}">
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="{{asset('js/layui.all.js')}}"></script>
 </head>
 <body>
-<section>
+<div style="margin-bottom: 50px;margin-left: 200px"><a class="layui-btn layui-btn-danger" href="{{route('fail.index')}}">未处理文章</a><a class="layui-btn layui-btn-normal" style="margin-left: 20px;" href="{{url('/article')}}">已处理文章</a></div>
+<section style="margin-bottom: 250px">
   <h1>搜狗微信文章爬取框架</h1>
   <form id="basic-form">
     <div class="form-group">
