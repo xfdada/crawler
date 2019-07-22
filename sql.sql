@@ -29,7 +29,7 @@ CREATE TABLE `article` (
   `content` longtext COMMENT '文章内容',
   `created_at` timestamp NULL DEFAULT NULL COMMENT '保存时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `article_cash` */
 
@@ -40,10 +40,10 @@ CREATE TABLE `article_cash` (
   `title` varchar(100) DEFAULT NULL COMMENT '标题',
   `origin` varchar(50) DEFAULT NULL COMMENT '来源公众号',
   `preview` varchar(200) DEFAULT NULL COMMENT '缩略图',
-  `content` text COMMENT '内容',
+  `content` longtext COMMENT '内容',
   `created_at` timestamp NULL DEFAULT NULL COMMENT '爬取时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

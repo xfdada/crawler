@@ -14,7 +14,7 @@
 <body>
 <h1 style="text-align: center;margin-top: 50px">祥富搜狗微信文章爬取工具编辑页面</h1>
 <article class="page-container" style="margin: 100px">
-    <form class="layui-form" id="atic" action="/admin/article/" method="post">
+    <form class="layui-form" id="atic"  method="post">
         {{csrf_field()}}
         <input name="_method" value="put" hidden/>
         <div class="layui-form-item">
@@ -52,17 +52,7 @@
             <label class="form-label col-xs-4 col-sm-2">文章内容</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <textarea id="editor" name="content" type="text/plain" style="width:100%;">
-                @foreach($data->content as $v)
-                        @if($v[0]=='p')
-                            <p>{{$v[1]}}</p>
-                        @elseif($v[0]=='img')
-                            <img src="{{$host}}{{$v[1]}}">
-                        @elseif($v[0]=='video')
-                            <iframe width="500" height="375" frameborder=0 src="{{$v[1]}}" allowfullscreen=""></iframe>
-                        @else
-                            <br/>
-                        @endif
-                    @endforeach
+                    {!! $data->content!!}
                 </textarea>
             </div>
         </div>
@@ -107,14 +97,14 @@
             });
             form.on('submit(demo1)', function(data){
                 $.ajax({
-                    url:'{{route('index.update',array('id'=>$data->id))}}',
-                    method:'post',
+                    url:'/index/{{$data->id}}',
+                    method:'put',
                     data:data.field,
                     dataType:'JSON',
                     success:function(res){
                         if(res.code==1){
                             layer.msg(res.msg,{ icon: 1, time: 1000 });
-                            $(location).attr('href', "article/");
+                            $(location).attr('href', "{{url('/article')}}");
                         }
                         else{
                             layer.msg(res.msg,{ icon: 5, time: 1000 });

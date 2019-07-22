@@ -35,39 +35,51 @@ class Index extends Model
         $content = $result->getBody();
         //实例化并调用 QueryList类中的html方法
         $html = QueryList::html($content);
-        //查找标题
-        $data['title'] = $html->find('#activity-name')->text();
-        //查找来源公众号
-        $data['origin'] = $html->find('#js_name')->text();
-        //查找内容部分 返回的为二维数组 第一个元素为标识类型 ，第二个为值
-        $list = $html->find('#js_content>p')->map(function($item){
-            if($item->find('')->text()){
-                return ['p',$item->find('')->text()];
-            }
-            elseif($item->find('iframe')->attr('src')){
-                return ['video',$item->find('iframe')->attr('src')];
-            }
-            elseif($item->find('img')->attr('data-src')){
-//                return ['img',$item->find('img')->attr('data-src')];
-                return ['img',$this->getWxImage($item->find('img')->attr('data-src'))];
-            }
-            return ['br'," "];
+
+
+        $img = $html->find('img')->map(function($item){
+            $src = $this->getWxImage($item->attr('data-src'),'img/');
+            $srcs = "http://".$_SERVER['HTTP_HOST'].'/'.$src;
+            $item->attr('data-src',$srcs);
+            $item->attr('src',$srcs);
+            return $src;
         });
+        $data['title'] = $html->find('#activity-name')->text();
+        $data['origin'] = $html->find('#js_name')->text();
+        $data['content']= $html->find('#js_content')->htmls();
+        //查找标题
+//        $data['title'] = $html->find('#activity-name')->text();
+//        //查找来源公众号
+//        $data['origin'] = $html->find('#js_name')->text();
+//        //查找内容部分 返回的为二维数组 第一个元素为标识类型 ，第二个为值
+//        $list = $html->find('#js_content>p')->map(function($item){
+//            if($item->find('')->text()){
+//                return ['p',$item->find('')->html()];
+//            }
+//            elseif($item->find('iframe')->attr('src')){
+//                return ['video',$item->find('iframe')->attr('src')];
+//            }
+//            elseif($item->find('img')->attr('data-src')){
+////                return ['img',$item->find('img')->attr('data-src')];
+//                return ['img',$this->getWxImage($item->find('img')->attr('data-src'))];
+//            }
+//            return ['br'," "];
+//        });
         $data['preview'] = '';
         //取第一张图的缩略图
-        foreach ($list as $v){
+        foreach ($img as $v){
             if($data['preview']!=''){
                 break;
             }
-            if($v[0]=='img'&&$v[1]!=''){
-                $file = $v[1];
+            if($v!=''){
+                $file = $v;
                 $save_dir = 'img/'.date("Ymd").'/';
                 $file_name = md5(date('YmdHis').mt_rand(10000,99999)).strrchr($file,'.');
                 $this->getcentreimg($file,$save_dir.$file_name,'200','200');
                 $data['preview'] = $save_dir.$file_name;
             }
         }
-        $data['content'] = json_encode($list);//不能用序列化存储到数据库中
+        $data['content'] = $data['content'][0];//不能用序列化存储到数据库中
 //        插入数据库中
         $data['created_at'] = date('Y-m-d H:i:s',time());
         $res = DB::table('article_cash')->insertGetId($data);

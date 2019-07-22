@@ -13,7 +13,7 @@
   <h1>{{$data->title}}</h1>
   <p>{{$data->origin}}</p>
   <div>
-    {!!$data->content!!}}
+    {!!  $data->content!!}
   </div>
 </body>
 </html>

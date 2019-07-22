@@ -4,40 +4,41 @@
     <meta charset="UTF-8">
     <title>祥富微信文章爬取工具</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://res.layui.com/layui/dist/css/layui.css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('layui/css/layui.css')}}">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="{{asset('js/layui.all.js')}}"></script>
 </head>
 <body>
-<div style="margin-top: 50px;"><a class="layui-btn layui-btn-normal" href="{{url('/index')}}">爬取文章</a><a class="layui-btn layui-btn-normal" style="margin-left: 20px;" href="{{url('/article')}}">已处理文章</a></div>
+<div style="margin-top: 50px;margin-left: 100px"><a class="layui-btn layui-btn-normal" href="{{url('/index')}}">爬取文章</a><a class="layui-btn layui-btn-normal" style="margin-left: 20px;" href="{{url('/article')}}">已处理文章</a></div>
 <h1 style="text-align: center">未处理文章</h1>
-<table class="layui-table" lay-size="lg">
-    <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-    </colgroup>
-    <thead>
-    <tr>
-        <th>标题</th>
-        <th>来源</th>
-        <th>预览图</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($data as $v)
-    <tr>
-        <td>{{$v->title}}</td>
-        <td>{{$v->origin}}</td>
-        <td><img src="{{$v->preview}}" height="50" width="50"/></td>
-        <td><a class='layui-btn layui-btn-xs' href="{{route('index.edit',['id'=>$v->id])}}">编辑</a> <a class='layui-btn layui-btn-danger layui-btn-xs'lay-event='del' onclick='article_del(this,{{$v->id}})'>删除</a></td>
-    </tr>
+<div style="margin-left: 50px">
+    <table class="layui-table" lay-size="lg">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th>来源</th>
+            <th>预览图</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($data as $v)
+            <tr>
+                <td>{{$v->title}}</td>
+                <td>{{$v->origin}}</td>
+                <td><img src="{{$v->preview}}" height="50" width="50"/></td>
+                <td><a class='layui-btn layui-btn-xs' href="{{route('index.edit',['id'=>$v->id])}}">编辑</a> <a class='layui-btn layui-btn-danger layui-btn-xs'lay-event='del' onclick='article_del(this,{{$v->id}})'>删除</a></td>
+            </tr>
         @endforeach
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</div>
 <style>
 
     .page-link{

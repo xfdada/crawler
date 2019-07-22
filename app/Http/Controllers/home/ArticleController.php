@@ -49,4 +49,12 @@ class ArticleController extends Controller
         return view('toedit',compact('data','host'));
     }
 
+    public function destroy($id){
+        $res = DB::table('article')->delete($id);
+        if ($res){
+            return $this->ToJson(1,'','删除成功');
+        }
+        return $this->ToJson(5,'','删除失败');
+    }
+
 }

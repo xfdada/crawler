@@ -65,7 +65,6 @@ class IndexController extends Controller
     public function edit($id){
         $host ="http://".$_SERVER['HTTP_HOST'].'/';
         $data = DB::table('article_cash')->find($id);
-        $data->content = json_decode($data->content,true);
         return view('edit',compact('data','host'));
     }
 

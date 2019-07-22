@@ -52,7 +52,7 @@
             <label class="form-label col-xs-4 col-sm-2">文章内容</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <textarea id="editor" name="content" type="text/plain" style="width:100%;">
-                {{$data->content }}
+                {!!$data->content!!}
                 </textarea>
             </div>
         </div>
